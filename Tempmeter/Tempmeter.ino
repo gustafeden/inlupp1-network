@@ -89,7 +89,6 @@ void loop() {
 		}
 	}
 	if (SendTemps && currentMillis - lastSent > 4000) {
-		//delay(100);
 		lastSent = currentMillis;
 		String tempToString = (String)dht->getTemp();
 		radio->sendTextMessage(tempToString);

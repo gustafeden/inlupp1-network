@@ -17,7 +17,6 @@ private:
 		radio->waitPacketSent();
 		Serial.print("Message Sent: ");
 		Serial.println(StringToSend);
-		//delay(100);
 	}
 public:
 	
@@ -66,7 +65,6 @@ public:
 		if (radio->recv(buf, &buflen)) {
 			Serial.print("something has been recieved: ");
 			Serial.println((char*)buf);
-			//sendf("recieved");
 			if (checkKey((char*)buf)) {
 				Serial.print("Message: ");
 				Serial.println((char*)buf);
@@ -99,7 +97,6 @@ public:
 	}
 	String splitkey(char * msgin) {
 		String sendback = msgin;
-		//Serial.println(sendback.substring(4, strlen(msgin)));
 		return sendback.substring(4, strlen(msgin));
 	}
 };

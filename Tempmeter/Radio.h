@@ -69,7 +69,6 @@ public:
 	}
 	String splitkey(char * msgin) {
 		String sendback = msgin;
-		//Serial.println(sendback.substring(4, strlen(msgin)));
 		return sendback.substring(4, strlen(msgin));
 	}
 };

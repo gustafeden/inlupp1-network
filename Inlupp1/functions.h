@@ -1,48 +1,28 @@
 #pragma once
 
-
-void initWifi(char* myssid, char* mypass) {
-
-	WiFi.mode(WIFI_STA);
-	WiFi.disconnect();
-	delay(100);
-
-	WiFi.begin(myssid, mypass);
-	Serial.print("Connecting");
-	while (WiFi.status() != WL_CONNECTED) {
-		delay(500);
-		Serial.print(".");
-	}
-	Serial.printf("\nConnected to: %s \r\n", myssid);
-	Serial.print("IP address:");Serial.println(WiFi.localIP());
-	Serial.print("MAC address:");Serial.println(WiFi.macAddress());
-	delay(500);
-
-}
-
 void initMultiWifi() {
 	WiFi.softAP(APssid, APpass);        
 	Serial.print("Access Point \"");
 	Serial.print(APssid);
 	Serial.println("\" started\r\n");
 
-	wifiMulti.addAP("iPhone x", "hejhejhej");   // add Wi-Fi networks you want to connect to
+	wifiMulti.addAP("iPhone x", "hejhejhej"); 
 	wifiMulti.addAP("Caesar's Palace 2.0", "kingofpop");
 	wifiMulti.addAP("IoT","IoT2018!");
 
 	Serial.println("Connecting");
-	while (wifiMulti.run() != WL_CONNECTED && WiFi.softAPgetStationNum() < 1) {  // Wait for the Wi-Fi to connect
+	while (wifiMulti.run() != WL_CONNECTED && WiFi.softAPgetStationNum() < 1) {
 		delay(250);
 		Serial.print('.');
 	}
 	Serial.println("\r\n");
-	if (WiFi.softAPgetStationNum() == 0) {      // If the ESP is connected to an AP
+	if (WiFi.softAPgetStationNum() == 0) {      
 		Serial.print("Connected to ");
-		Serial.println(WiFi.SSID());             // Tell us what network we're connected to
+		Serial.println(WiFi.SSID());            
 		Serial.print("IP address:\t");
-		Serial.print(WiFi.localIP());            // Send the IP address of the ESP8266 to the computer
+		Serial.print(WiFi.localIP());           
 	}
-	else {                                   // If a station is connected to the ESP SoftAP
+	else {                               
 		Serial.print("Station connected to ESP8266 AP");
 	}
 	Serial.println("\r\n");
@@ -63,38 +43,6 @@ void initSerial(int baud) {
 void initRadio() {
 	radiomodule = new RFradio(new RH_ASK(2000, 15, 16, 12));
 }
-/*
-void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
-{
-	Serial.printf("webSocketEvent(%d, %d, ...)\r\n", num, type);
-	switch (type) {
-	case WStype_DISCONNECTED:
-		Serial.printf("[%u] Disconnected!\r\n", num);
-		break;
-	case WStype_CONNECTED:
-	{
-		IPAddress ip = webSocket.remoteIP(num);
-		Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\r\n", num, ip[0], ip[1], ip[2], ip[3], payload);
-	}
-	break;
-	case WStype_TEXT:
-		Serial.printf("[%u] get Text: %s\r\n", num, payload);
-		// send data to all connected clients
-		webSocket.broadcastTXT(payload, length);
-		break;
-	case WStype_BIN:
-		Serial.printf("[%u] get binary length: %u\r\n", num, length);
-		hexdump(payload, length);
-
-		// echo data back to browser
-		webSocket.sendBIN(num, payload, length);
-		break;
-	default:
-		Serial.printf("Invalid WStype [%d]\r\n", type);
-		break;
-	}
-}
-*/
 void LogOut() {
 	usernamecheck = false;
 	passwordcheck = false;
