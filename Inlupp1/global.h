@@ -15,3 +15,5 @@ bool recievenewtemp = false;
 unsigned long currentMillis;
 unsigned long lastRecievedTemp;
 unsigned long lastSent;
+unsigned long lastTempUpdate;
+int testtemp;

@@ -145,7 +145,7 @@ void actionHandler() {
 					showmsg = false;
 					radiomodule->stopRecieving();
 					radiomodule->ReadyForTemps();
-		
+
 				}
 				if (server.arg(i) == "msgbtn") {
 					Serial.println("message button pressed");
@@ -172,9 +172,14 @@ void actionHandler() {
 	server.sendHeader("Location", "/selection");
 	server.send(303);
 }
-
 void updateTemps() {
-	Serial.println("udatetemps");
-	server.sendHeader("Location", "/selection");
-	server.send(303);
+	String dataToWebsite;
+	if (currentMillis - lastSent > 5000) {
+		dataToWebsite = "no signal";
+	}
+	else
+		dataToWebsite = radiomodule->getTemps();
+	server.send(200, "text/plane", dataToWebsite);
+	Serial.print("Sent to server:");
+	Serial.println(dataToWebsite);
 }

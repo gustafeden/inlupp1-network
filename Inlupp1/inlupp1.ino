@@ -25,6 +25,7 @@ RFradio *radiomodule;
 
 
 void setup() {
+	testtemp = 1;
 	pinMode(LED_BUILTIN, OUTPUT);
 	digitalWrite(LED_BUILTIN, LOW);
 	initSerial(9600);
@@ -35,7 +36,7 @@ void setup() {
 	server.on("/login", HTTP_POST, validateLogin);
 	server.on("/selection", selectionPage);
 	server.on("/selection/action", HTTP_POST, actionHandler);
-	server.on("/selection/update", updateTemps);
+	server.on("/update", updateTemps);
 	server.onNotFound(handleNotFound);
 	server.begin();
 	//webSocket.begin();
@@ -56,7 +57,7 @@ void loop() {
 			digitalWrite(LED_BUILTIN, LOW);
 			radiomodule->setifrec(false);
 			lastRecievedTemp = currentMillis;
-			selectionPage();
+			//selectionPage();
 			recievenewtemp = true;
 			digitalWrite(LED_BUILTIN, HIGH);
 		}
@@ -70,10 +71,13 @@ void loop() {
 		recievenewtemp = false;
 		lastSent = currentMillis;
 	}
-	if (showtemps) {
+	/*
+	if (showtemps && currentMillis - lastTempUpdate > 4000) {
+		lastTempUpdate = currentMillis;
+		server.send(200, "text/plane", radiomodule->getTemps());
 		//update temps.
 
-	}
+	}*/
 	server.handleClient();
 
 
