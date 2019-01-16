@@ -11,8 +11,6 @@ const char* RFKEY = "gug";
 #include <SPI.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WebSocketsServer.h>
-#include <ESP8266mDNS.h>
 #include <ESP8266WiFiMulti.h>
 #include "global.h"
 #include "Radio.h"

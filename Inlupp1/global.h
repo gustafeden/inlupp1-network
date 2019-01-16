@@ -1,7 +1,5 @@
 #pragma once
-MDNSResponder mdns;
 ESP8266WebServer server(80);
-WebSocketsServer webSocket = WebSocketsServer(81);
 ESP8266WiFiMulti wifiMulti;
 static char* APssid = "FEATHER8266";
 static char* APpass = "hejhejhej";
